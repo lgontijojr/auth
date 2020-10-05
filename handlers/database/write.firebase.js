@@ -4,15 +4,7 @@ const database = require("../firebase/firebase.init");
 async function handleDatabaseWrite({ uid, data }) {
   const formattedDate = JSON.parse(data);
 
-  await database.admin
-    .ref(`/users/${uid}`)
-    .set({ profile: formattedDate })
-    .then((result) => {
-      res.send({ okay: true });
-    })
-    .catch((error) => {
-      res.send({ okay: false });
-    });
+  await database.admin.ref(`/users/${uid}`).set({ profile: formattedDate });
 }
 
 module.exports.handleDatabaseWrite = handleDatabaseWrite;
