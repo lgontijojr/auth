@@ -12,3 +12,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+const admin = firebase.database();
+
+module.exports = { admin };
