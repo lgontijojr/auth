@@ -1,8 +1,8 @@
 require("../firebase/firebase.init");
 const firebase = require("firebase");
 
-function handleSignOut({ email, password }) {
-  firebase.auth().signOut();
+async function handleSignOut({ email, password }) {
+  return await firebase.auth().signOut();
 }
 
 module.exports.handleSignOut = handleSignOut;
