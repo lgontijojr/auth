@@ -12,7 +12,7 @@ app.get("/auth/signup", (req, res) => {
   return auth.signUp
     .handleSignUp({ email, password })
     .then((result) => {
-      res.send({ okay: true });
+      res.send({ uid: result.user["uid"], okay: true });
     })
     .catch((error) => {
       res.send({ okay: false });
