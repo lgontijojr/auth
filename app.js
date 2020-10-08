@@ -7,17 +7,6 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/auth/onStateChanged", (req, res) => {
-  return auth.currentUser
-    .currentUserSignedIn()
-    .then((result) => {
-      res.send({ okay: result });
-    })
-    .catch((error) => {
-      res.send({ okay: error });
-    });
-});
-
 app.get("/auth/signout", (req, res) => {
   return auth.singOut
     .handleSignOut()
@@ -59,7 +48,7 @@ app.get("/database/write/database", (req, res) => {
   const { uid, data } = req.query;
 
   return database.write
-    .handleDatabaseWrite({ uid, data })
+    .handleDatabase({ uid, data })
     .then((result) => {
       res.send({ okay: true });
     })
@@ -72,7 +61,7 @@ app.get("/database/read", (req, res) => {
   const { uid } = req.query;
 
   return database.read
-    .handleDatabaseRead({ uid })
+    .handleDatabase({ uid })
     .then((result) => {
       res.send({ data: result, okay: true });
     })
