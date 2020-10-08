@@ -1,4 +1,3 @@
-require("dotenv").config();
 const firebase = require("firebase");
 
 const firebaseConfig = {
@@ -16,4 +15,4 @@ firebase.initializeApp(firebaseConfig);
 
 const admin = firebase.database();
 
-module.exports = { admin };
+module.exports = { admin, firebase };

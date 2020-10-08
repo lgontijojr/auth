@@ -1,11 +1,33 @@
 const express = require("express");
 const auth = require("./handlers/auth/index");
-const databse = require("./handlers/database/index");
+const database = require("./handlers/database/index");
 const bodyParser = require("body-parser");
 const port = process.env.PORT || "8000";
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.get("/auth/onStateChanged", (req, res) => {
+  return auth.currentUser
+    .currentUserSignedIn()
+    .then((result) => {
+      res.send({ okay: result });
+    })
+    .catch((error) => {
+      res.send({ okay: error });
+    });
+});
+
+app.get("/auth/signout", (req, res) => {
+  return auth.singOut
+    .handleSignOut()
+    .then((result) => {
+      res.send({ okay: result });
+    })
+    .catch((error) => {
+      res.send({ okay: error });
+    });
+});
 
 app.get("/auth/signup", (req, res) => {
   const { email, password } = req.query;
@@ -33,10 +55,10 @@ app.get("/auth/signin", (req, res) => {
     });
 });
 
-app.get("/database/write", (req, res) => {
+app.get("/database/write/database", (req, res) => {
   const { uid, data } = req.query;
 
-  return databse.write
+  return database.write
     .handleDatabaseWrite({ uid, data })
     .then((result) => {
       res.send({ okay: true });
@@ -49,7 +71,7 @@ app.get("/database/write", (req, res) => {
 app.get("/database/read", (req, res) => {
   const { uid } = req.query;
 
-  return databse.read
+  return database.read
     .handleDatabaseRead({ uid })
     .then((result) => {
       res.send({ data: result, okay: true });

@@ -1,10 +1,10 @@
 require("../firebase/firebase.init");
-const database = require("../firebase/firebase.init");
+const firebaseInit = require("../firebase/firebase.init");
 
-async function handleDatabaseRead({ uid }) {
+async function handleDatabase({ uid }) {
   const userData = [];
-  console.log("UID", uid);
-  await database.admin
+
+  await firebaseInit.admin
     .ref(`users/${uid}/profile`)
     .once("value", async (snapshot) => {
       return userData.push(snapshot.val());
@@ -13,4 +13,4 @@ async function handleDatabaseRead({ uid }) {
   return userData;
 }
 
-module.exports.handleDatabaseRead = handleDatabaseRead;
+module.exports.handleDatabase = handleDatabase;
